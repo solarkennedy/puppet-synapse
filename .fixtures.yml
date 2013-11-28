@@ -1,5 +1,6 @@
 fixtures:
   repositories:
     stdlib: "git://github.com/puppetlabs/puppetlabs-stdlib.git"
+    haproxy: "git://github.com/puppetlabs/puppetlabs-haproxy.git"
   symlinks:
     synapse: "#{source_dir}"

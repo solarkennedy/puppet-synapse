@@ -1,15 +1,24 @@
-# == Class synapse::service
+# == Define: nerve::register
 #
-# This class is meant to be called from synapse
-# It ensure the service is running
+# Sets up a nerve configuration file to register a particular service
 #
-class synapse::service {
-  include synapse::params
+# == Parameters
+#
+# [*port*]
+#   Port on the local side that the service is exposing. No default.
+#
+define synapse::service (
+  $target        = "/etc/synapse/conf.d/${name}.json"
+) {
 
-  service { $synapse::params::service_name:
-    ensure     => running,
-    enable     => true,
-    hasstatus  => true,
-    hasrestart => true,
+  include stdlib
+  validate_absolute_path($target)
+
+  file { $target:
+    ensure  => $ensure,
+    owner   => 'root',
+    mode    => '0444',
+    content => template('synapse/service.json.erb'),
   }
+
 }

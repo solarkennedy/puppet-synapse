@@ -1,9 +1,23 @@
 # == Class synapse::intall
 #
 class synapse::install {
-  include synapse::params
 
-  package { $synapse::params::package_name:
-    ensure => present,
+  if ! $synapse::package_name {
+    # In the case where a package name is not specified
+    # Try to guess what the package name should be based on the provider
+    case $synapse::package_provider {
+      'gem','Gem': { $package_name = 'synapse' }
+      default:     { $package_name = 'rubygem-synapse' }
+    }
+  } else {
+   # Use the package name they asked for
+   $package_name = $synapse::package_name
   }
+
+  package { 'synapse':
+    name     => $package_name,
+    ensure   => $synapse::package_ensure,
+    provider => $synapse::package_provider,
+  }
+
 }
