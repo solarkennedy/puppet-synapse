@@ -1,24 +1,26 @@
 {
   "default_servers": [
-    { "name": "default1", "host": "localhost", "port": 8080 }
+    {
+      "name": "default1",
+      "host": "localhost",
+      "port": 8423
+    }
   ],
   "discovery": {
-    "method": "dns",
-    "nameserver": "10.10.1.13",
-    "servers": [
-      "0.www.example.com",
-      "1.www.example.com"
+    "method": "zookeeper",
+    "path": "/airbnb/service/service1",
+    "hosts": [
+      "zk0.airbnb.com:2181",
+      "zk1.airbnb.com:2181"
     ]
   },
   "haproxy": {
+    "port": 3213,
     "server_options": "check inter 2s rise 3 fall 2",
     "listen": [
       "mode http",
-      "option httplog"
-    ],
-    "backend": [
-      "mode http",
-      "option httpchk GET /health HTTP/1.0"
+      "option httpchk /health",
+      "http-check expect string OK"
     ]
   }
 }

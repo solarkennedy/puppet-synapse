@@ -1,4 +1,7 @@
 #synapse
+
+# WARNING: Doesn't work yet. Requires an unreleased version of synapse
+
 [![Build Status](https://travis-ci.org/solarkennedy/puppet-synapse.png)](https://travis-ci.org/solarkennedy/puppet-synapse)
 
 ## Description
