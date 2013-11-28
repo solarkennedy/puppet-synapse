@@ -10,10 +10,9 @@
 class synapse (
 ) inherits synapse::params {
 
-  # validate parameters here
-
   class { 'synapse::install': } ->
   class { 'synapse::config': } ~>
   class { 'synapse::service': } ->
   Class['synapse']
+
 }

@@ -1,38 +1,33 @@
 #synapse
 [![Build Status](https://travis-ci.org/solarkennedy/puppet-synapse.png)](https://travis-ci.org/solarkennedy/puppet-synapse)
 
-####Table of Contents
+## Description
 
-1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with [Modulename]](#setup)
-    * [What [Modulename] affects](#what-[modulename]-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with [Modulename]](#beginning-with-[Modulename])
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
-
-##Overview
-
-A one-maybe-two sentence summary of what the module does/what problem it solves. This is your 30 second elevator pitch for your module. Consider including OS/Puppet version it works with.       
+This puppet module configures [Synapse](https://github.com/airbnb/synapse), a service discovery system by Airbnb. 
+Synapse configures a local HAproxy running on every node, configured dynamically from Zookeeper entries.
 
 ##Installation
 
-###What [Modulename] affects
+    puppet module install KyleAnderson/synapse
+    # Or librarian-puppet, r10k, whatever.
 
-* A list of files, packages, services, or operations that the module will alter, impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form. 
+###What this module affects
+
+* /etc/synapse/ for configs
+* Installs synapse (either via gem or system package
+* Installs and configures HAproxy
+
+###HAproxy considerations
+
+This puppet module is tightly bound to the [Puppetlabs HAProxy](https://github.com/puppetlabs/puppetlabs-haproxy) module.
+
+This is because *synapse* is tighly bound to it. There is no expectation here in this module that there is non-synapse controlled HAProxy stuff going on. 
 
 ##Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing the fancy stuff with your module here. 
 
 ##Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
 
 ##Development
 Open an [issue](https://github.com/solarkennedy/puppet-synapse/issues) or 
