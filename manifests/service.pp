@@ -1,6 +1,6 @@
-# == Define: nerve::register
+# == Define: synapse::service
 #
-# Sets up a nerve configuration file to register a particular service
+# Sets up a synapse configuration file to expose a particular service
 #
 # == Parameters
 #

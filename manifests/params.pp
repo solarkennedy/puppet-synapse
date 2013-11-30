@@ -13,8 +13,8 @@ class synapse::params {
       $package_provider = undef
       $service_ensure   = 'running'
       $service_enable   = true
-      $config_file      = '/etc/nerve/nerve.conf.json'
-      $config_dir       = '/etc/nerve/conf.d/'
+      $config_file      = '/etc/synapse/synapse.conf.json'
+      $config_dir       = '/etc/synapse/conf.d/'
       $purge_config     = true
       $instance_id      = $::fqdn
     }
