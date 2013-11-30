@@ -1,20 +1,20 @@
 {
-  "service_conf_dir": "config/synapse_services",
+  "service_conf_dir": "<%= scope.lookupvar('synapse::config_dir') %>",
   "haproxy": {
-    "reload_command": "sudo service haproxy reload",
+    "reload_command": "service haproxy reload",
     "config_file_path": "/etc/haproxy/haproxy.cfg",
-    "socket_file_path": "/var/haproxy/stats.sock",
+    "socket_file_path": "<%= scope.lookupvar('synapse::stats_socket') %>",
     "do_writes": true,
     "do_reloads": true,
     "do_socket": true,
     "global": [
       "daemon",
-      "user haproxy",
-      "group haproxy",
+      "user <%= scope.lookupvar('synapse::user') %>",
+      "group <%= scope.lookupvar('synapse::group') %>",
       "maxconn 4096",
       "log     127.0.0.1 local0",
       "log     127.0.0.1 local1 notice",
-      "stats   socket /var/haproxy/stats.sock mode 666 level admin"
+      "stats   socket <%= scope.lookupvar('synapse::stats_socket') %> mode 666 level admin"
     ],
     "defaults": [
       "log      global",

@@ -8,4 +8,3 @@ description   'Puppet configuration for Airbnb's system for service discovery. C
 project_page  'https://github.com/solarkennedy/puppet-synapse'
 
 dependency 'puppetlabs/stdlib'
-dependency 'puppetlabs/haproxy'

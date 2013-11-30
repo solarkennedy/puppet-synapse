@@ -14,6 +14,9 @@ class synapse::install {
    $package_name = $synapse::package_name
   }
 
+  package { 'haproxy':
+    ensure => $synapse::haproxy_ensure
+  } ->
   package { 'synapse':
     name     => $package_name,
     ensure   => $synapse::package_ensure,

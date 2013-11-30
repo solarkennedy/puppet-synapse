@@ -16,6 +16,10 @@ class synapse (
   $config_file      = $synapse::params::config_file,
   $config_dir       = $synapse::params::config_dir,
   $purge_config     = $synapse::params::purge_config,
+  $haproxy_ensure   = $synapse::params::haproxy_ensure, 
+  $user             = $synapse::params::user,
+  $group            = $synapse::params::group,
+  $stats_socket     = $synapse::params::stats_socket,
 
 ) inherits synapse::params {
 

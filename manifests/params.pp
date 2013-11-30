@@ -4,6 +4,7 @@
 # It sets variables according to platform
 #
 class synapse::params {
+  
   case $::osfamily {
     'Debian','RedHat','Amazon': {
       # Right now, requires 0.7.0
@@ -17,9 +18,14 @@ class synapse::params {
       $config_dir       = '/etc/synapse/conf.d/'
       $purge_config     = true
       $instance_id      = $::fqdn
+      $haproxy_ensure   = 'present'
+      $user             = 'haproxy'
+      $group            = 'haproxy'
+      $stats_socket     = '/var/lib/haproxy/stats'
     }
     default: {
       fail("${::operatingsystem} not supported")
     }
   }
+
 }
