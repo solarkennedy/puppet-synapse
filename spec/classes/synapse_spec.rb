@@ -52,14 +52,11 @@ describe 'synapse' do
   # Config stuff
   context 'config by default' do
     let(:params) {{  }}
-    let(:facts) {{ :osfamily => 'Debian',
-                   :fqdn     => 'random_hostname'
-    }}
+    let(:facts) {{ :osfamily => 'Debian' }}
     it { should contain_file('/etc/synapse/synapse.conf.json').with(
       :ensure   => 'present',
       :mode     => '0444'
     ) }
-    it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/"instance_id": "random_hostname"/) }
     it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/"service_conf_dir": "\/etc\/synapse\/conf.d\/"/) }
     it { should contain_file('/etc/synapse/conf.d/').with(
       :ensure   => 'directory',

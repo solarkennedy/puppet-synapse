@@ -6,36 +6,57 @@ describe 'synapse::service', :type => :define do
       'example_service'
     end
     let (:params) {{ 
-      :port           => '9000',
-      :host           => '4.2.2.2',
-      :zk_hosts       => ["zk1:2181"],
-      :zk_path        => "/synapse/services/my_webapp_bla",
-      :check_interval => '99',
-      :checks         => [
-                           {
-                             'type' => 'http',
-                             'uri'  => '/health',
-                             'timeout' => '0.2',
-                             'rise'    => '3',
-                             'fall'    => '2'
-                           }
-                         ]
+      :default_servers => [
+        {
+          "name" => "default1",
+          "host" => "localhost",
+          "port" => 8422
+        }
+      ],
+      :discovery => {
+        "method" => "zookeeper",
+        "path"   => "/airbnb/service/service2",
+        "hosts"  =>  [
+          "zk0.airbnb.com:2181",
+          "zk1.airbnb.com:2181"
+        ]
+      },
+      :haproxy => {
+        "port"           => '3214',
+        "server_options" => "check inter 2s rise 3 fall 2",
+        "listen"         => [
+          "mode http",
+          "option httpchk /health",
+        ]
+      },
     }}
     it { should contain_file('/etc/synapse/conf.d/example_service.json').with(
       :ensure => 'present',
       :mode   => '0444',
     ) }
-    it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/"port": 9000/) }
-    it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/"host": "4\.2\.2\.2",/) }
-    it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/"zk_hosts": \["zk1:2181"\],/) }
-    it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/"zk_path": "\/synapse\/services\/my_webapp_bla",/) }
-    it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/"check_interval": 99,/) }
-#    it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/"checks": \[\n  {\n    "type": "http",\n    "uri": "\/health",\n    "timeout": "0.2",\n    "rise": "3",\n    "fall": "2"\n  }\n\]\n}/) }
+
+    #TODO: Validate JSON
+    
+    it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/\"default_servers\": \[\n  \{\n    \"name\": \"default1\",\n    \"host\": \"localhost\",\n    \"port\": \"8422\"\n  \}\n\]/) }
+    
+    it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/\"discovery\": \{\n  \"method\": \"zookeeper\",\n  \"path\": \"\/airbnb\/service\/service2\",\n  \"hosts\": \[\n    \"zk0\.airbnb\.com:2181\",/) }
+
+    it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/\"haproxy\": \{\n  \"port\": \"3214\",\n  \"server_options\": \"check inter 2s rise 3 fall 2\",\n  \"listen\": \[\n    \"mode http\",\n    \"option httpchk \/health\"\n  \]\n\}\n\}/ ) }
   end # end example service
 
-  describe 'When not specifying a port' do
-    let (:params) {{ }}
-    it { expect { should }.to raise_error(NameError) }
+  describe 'When asking to ensure absent' do
+    let :title do
+      'example_service'
+    end
+    let (:params) {{
+      :ensure          => 'absent',
+      :default_servers => [],
+      :discovery       => {},
+      :haproxy         => {}
+    }}
+    it { should contain_file('/etc/synapse/conf.d/example_service.json').with(
+      :ensure => 'absent'
+    ) }
   end 
 
 end # end describe
