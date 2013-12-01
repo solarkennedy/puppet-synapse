@@ -1,6 +1,6 @@
 #synapse
 
-# WARNING: Doesn't work yet. Requires an unreleased version of synapse
+# WARNING: Requires an unreleased version of synapse. 
 
 [![Build Status](https://travis-ci.org/solarkennedy/puppet-synapse.png)](https://travis-ci.org/solarkennedy/puppet-synapse)
 
@@ -22,15 +22,50 @@ Synapse configures a local HAproxy running on every node, configured dynamically
 
 ###HAproxy considerations
 
-This puppet module is tightly bound to the [Puppetlabs HAProxy](https://github.com/puppetlabs/puppetlabs-haproxy) module.
+This module is incompatible with an existing instance of HAProxy running. Synapse overwrites the HAProxy config file.
 
-This is because *synapse* is tighly bound to it. There is no expectation here in this module that there is non-synapse controlled HAProxy stuff going on. 
+##Usage Examples
 
-##Usage
+Start off by getting synapse installed and running:
 
+    class { 'synapse':
+      package_provider => 'gem'
+    }
+
+Now you can prep synapse for listening for services. Syntax is a little tricky, but follows the syntax in [example configs](https://github.com/airbnb/synapse/blob/master/config/synapse_services/service2.json).
+All parameters are validated, so puppet won't let you insert invalid syntax:
+
+    synapse::service { 'service1':
+      default_servers => [
+        {
+          "name" => "default1",
+          "host" => "localhost",
+          "port" => 8422
+        }
+      ],
+      discovery => {
+        "method" => "zookeeper",
+        "path"   => "/airbnb/service/service2",
+        "hosts"  =>  [
+          "zk0.airbnb.com:2181",
+          "zk1.airbnb.com:2181"
+        ]
+      },
+      haproxy => {
+        "port"           => '3214',
+        "server_options" => "check inter 2s rise 3 fall 2",
+        "listen"         => [
+          "mode http",
+          "option httpchk /health",
+        ]
+      },
+      ensure => 'present',
+    }
 
 ##Limitations
 
+I assume that you are using a modern version of ruby on the puppetmaster. It outputs json, so either use ruby 1.9 with built in JSON or have the JSON gem available. 
+Pull requests welcome for a better way to do this.
 
 ##Development
 Open an [issue](https://github.com/solarkennedy/puppet-synapse/issues) or 
