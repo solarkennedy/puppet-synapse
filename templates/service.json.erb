@@ -1,26 +1,5 @@
 {
-  "default_servers": [
-    {
-      "name": "default1",
-      "host": "localhost",
-      "port": 8423
-    }
-  ],
-  "discovery": {
-    "method": "zookeeper",
-    "path": "/airbnb/service/service1",
-    "hosts": [
-      "zk0.airbnb.com:2181",
-      "zk1.airbnb.com:2181"
-    ]
-  },
-  "haproxy": {
-    "port": 3213,
-    "server_options": "check inter 2s rise 3 fall 2",
-    "listen": [
-      "mode http",
-      "option httpchk /health",
-      "http-check expect string OK"
-    ]
-  }
+  "default_servers": <%= require "json"; JSON.pretty_generate(@default_servers) %>,
+  "discovery": <%= require "json"; JSON.pretty_generate(@discovery) %>,
+  "haproxy": <%= require "json"; JSON.pretty_generate(@haproxy) %>
 }
