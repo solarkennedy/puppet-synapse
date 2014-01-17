@@ -70,7 +70,7 @@ define synapse::service (
   }
 
   if str2bool($synapse::service_manage) {
-    File[$target] ~> Service['synapse'],
+    File[$target] ~> Service['synapse']
   }
 
 }
