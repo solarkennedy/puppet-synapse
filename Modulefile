@@ -7,4 +7,5 @@ summary       'Puppet configuration for Airbnbs system for service discovery. Co
 description   'Puppet configuration for Airbnbs system for service discovery. Configures a dynamic HAproxy based on zookeeper entries'
 project_page  'https://github.com/solarkennedy/puppet-synapse'
 
-dependency 'puppetlabs/stdlib'
+dependency 'puppetlabs/stdlib', '>= 3.0.0'
+
