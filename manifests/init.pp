@@ -11,6 +11,7 @@ class synapse (
   $package_ensure   = $synapse::params::package_ensure,
   $package_provider = $synapse::params::package_provider,
   $package_name     = $synapse::params::package_name,
+  $service_manage   = $synapse::params::service_manage,
   $service_ensure   = $synapse::params::service_ensure,
   $service_enable   = $synapse::params::service_enable,
   $config_file      = $synapse::params::config_file,
@@ -24,8 +25,10 @@ class synapse (
 ) inherits synapse::params {
 
   class { 'synapse::install': } ->
-  class { 'synapse::config': } ~>
-  class { 'synapse::system_service': } ->
-  Class['synapse']
-
+  class { 'synapse::config': }
+  if str2bool($service_manage) {
+    Class['synapse::config'] ~>
+    class { 'synapse::system_service': }
+  }
 }
+
