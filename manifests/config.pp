@@ -2,7 +2,7 @@
 #
 # This class is called from synapse
 #
-class synapse::config {
+class synapse::config ($haproxy_daemon) {
 
   # TODO: something?
   # In the case were we are using the default location

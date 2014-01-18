@@ -21,11 +21,13 @@ class synapse (
   $user             = $synapse::params::user,
   $group            = $synapse::params::group,
   $stats_socket     = $synapse::params::stats_socket,
-
+  $haproxy_daemon   = true
 ) inherits synapse::params {
 
   class { 'synapse::install': } ->
-  class { 'synapse::config': }
+  class { 'synapse::config':
+    haproxy_daemon => $haproxy_daemon
+  }
   if str2bool($service_manage) {
     Class['synapse::config'] ~>
     class { 'synapse::system_service': }

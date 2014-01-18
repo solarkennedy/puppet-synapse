@@ -8,7 +8,8 @@
     "do_reloads": true,
     "do_socket": true,
     "global": [
-      "daemon",
+<%- if @haproxy_daemon -%>      "daemon",
+<%- end -%>
       "user <%= scope.lookupvar('synapse::user') %>",
       "group <%= scope.lookupvar('synapse::group') %>",
       "maxconn 4096",
