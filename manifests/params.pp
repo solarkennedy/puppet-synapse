@@ -12,6 +12,7 @@ class synapse::params {
       # Allow logic to change based on requested provider
       $package_name     = undef
       $package_provider = undef
+      $service_manage   = true
       $service_ensure   = 'running'
       $service_enable   = true
       $config_file      = '/etc/synapse/synapse.conf.json'

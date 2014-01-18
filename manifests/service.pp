@@ -67,7 +67,11 @@ define synapse::service (
     owner   => 'root',
     mode    => '0444',
     content => template('synapse/service.json.erb'),
-    notify  => Service['synapse'],
+  }
+
+  if str2bool($synapse::service_manage) {
+    File[$target] ~> Service['synapse'],
   }
 
 }
+

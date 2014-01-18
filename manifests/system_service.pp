@@ -16,7 +16,7 @@ class synapse::system_service {
   } ~>
   service { 'synapse':
     ensure     => $synapse::service_ensure,
-    enable     => $synapse::service_enable,
+    enable     => str2bool($synapse::service_enable),
     hasstatus  => true,
     hasrestart => true,
   }
