@@ -23,6 +23,7 @@ class synapse::params {
       $user             = 'haproxy'
       $group            = 'haproxy'
       $stats_socket     = '/var/lib/haproxy/stats'
+      $haproxy_reload_command = 'service haproxy reload'
     }
     default: {
       fail("${::operatingsystem} not supported")

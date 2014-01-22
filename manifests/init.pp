@@ -19,14 +19,16 @@ class synapse (
   $purge_config     = $synapse::params::purge_config,
   $haproxy_ensure   = $synapse::params::haproxy_ensure, 
   $user             = $synapse::params::user,
-  $group            = $synapse::params::group,
-  $stats_socket     = $synapse::params::stats_socket,
-  $haproxy_daemon   = true
+  $group                   = $synapse::params::group,
+  $stats_socket            = $synapse::params::stats_socket,
+  $haproxy_daemon          = true,
+  $haproxy_reload_command  = $synapse::params::haproxy_reload_command,
 ) inherits synapse::params {
 
   class { 'synapse::install': } ->
   class { 'synapse::config':
-    haproxy_daemon => $haproxy_daemon
+    haproxy_daemon => $haproxy_daemon,
+    haproxy_reload_command => $haproxy_reload_command;
   }
   if str2bool($service_manage) {
     Class['synapse::config'] ~>
