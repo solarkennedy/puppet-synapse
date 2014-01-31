@@ -23,12 +23,14 @@ class synapse (
   $stats_socket            = $synapse::params::stats_socket,
   $haproxy_daemon          = true,
   $haproxy_reload_command  = $synapse::params::haproxy_reload_command,
+  $haproxy_bind_address    = 'localhost'
 ) inherits synapse::params {
 
   class { 'synapse::install': } ->
   class { 'synapse::config':
     haproxy_daemon => $haproxy_daemon,
-    haproxy_reload_command => $haproxy_reload_command;
+    haproxy_reload_command => $haproxy_reload_command,
+    haproxy_bind_address   => $haproxy_bind_address
   }
   if str2bool($service_manage) {
     Class['synapse::config'] ~>

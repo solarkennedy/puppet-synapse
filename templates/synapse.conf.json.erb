@@ -1,7 +1,8 @@
 {
   "service_conf_dir": "<%= scope.lookupvar('synapse::config_dir') %>",
   "haproxy": {
-  "reload_command": "<%= @haproxy_reload_command %>",
+    "bind_address": "<%= @haproxy_bind_address %>",
+    "reload_command": "<%= @haproxy_reload_command %>",
     "config_file_path": "/etc/haproxy/haproxy.cfg",
     "socket_file_path": "<%= scope.lookupvar('synapse::stats_socket') %>",
     "do_writes": true,
