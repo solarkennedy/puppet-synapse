@@ -23,7 +23,18 @@ class synapse (
   $stats_socket            = $synapse::params::stats_socket,
   $haproxy_daemon          = true,
   $haproxy_reload_command  = $synapse::params::haproxy_reload_command,
-  $haproxy_bind_address    = 'localhost'
+  $haproxy_bind_address    = 'localhost',
+  $haproxy_defaults        = [
+    'log      global',
+    'option   dontlognull',
+    'maxconn  2000',
+    'retries  3',
+    'timeout  connect 5s',
+    'timeout  client  1m',
+    'timeout  server  1m',
+    'option   redispatch',
+    'balance  roundrobin'
+  ]
 ) inherits synapse::params {
 
   class { 'synapse::install': } ->

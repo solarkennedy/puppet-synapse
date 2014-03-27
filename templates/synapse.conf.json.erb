@@ -1,4 +1,4 @@
-{
+<% require 'json' %>{
   "service_conf_dir": "<%= scope.lookupvar('synapse::config_dir') %>",
   "haproxy": {
     "bind_address": "<%= @haproxy_bind_address %>",
@@ -18,17 +18,7 @@
       "log     127.0.0.1 local1 notice",
       "stats   socket <%= scope.lookupvar('synapse::stats_socket') %> mode 666 level admin"
     ],
-    "defaults": [
-      "log      global",
-      "option   dontlognull",
-      "maxconn  2000",
-      "retries  3",
-      "timeout  connect 5s",
-      "timeout  client  1m",
-      "timeout  server  1m",
-      "option   redispatch",
-      "balance  roundrobin"
-    ],
+    "defaults": <%= scope.lookupvar('synapse::haproxy_defaults').to_json %>,
     "extra_sections": {
       "listen stats :3212": [
         "mode http",
