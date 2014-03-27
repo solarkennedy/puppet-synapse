@@ -14,9 +14,11 @@ class synapse::install {
    $package_name = $synapse::package_name
   }
 
-  package { 'haproxy':
-    ensure => $synapse::haproxy_ensure
-  } ->
+  if $synapse::haproxy_ensure != 'unmanaged' {
+    package { 'haproxy':
+      ensure => $synapse::haproxy_ensure
+    } -> Package['synapse']
+  }
   package { 'synapse':
     name     => $package_name,
     ensure   => $synapse::package_ensure,
