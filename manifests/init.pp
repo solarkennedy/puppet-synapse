@@ -34,6 +34,10 @@ class synapse (
     'timeout  server  1m',
     'option   redispatch',
     'balance  roundrobin'
+  ],
+  $haproxy_global_log      = [
+    'log     127.0.0.1 local0',
+    'log     127.0.0.1 local1 notice'
   ]
 ) inherits synapse::params {
 
@@ -48,4 +52,3 @@ class synapse (
     class { 'synapse::system_service': }
   }
 }
-
