@@ -18,13 +18,6 @@
       "stats   socket <%= scope.lookupvar('synapse::stats_socket') %> mode 666 level admin"
     ],
     "defaults": <%= scope.lookupvar('synapse::haproxy_defaults').to_json %>,
-    "extra_sections": {
-      "listen stats :3212": [
-        "mode http",
-        "stats enable",
-        "stats uri /",
-        "stats refresh 5s"
-      ]
-    }
+    "extra_sections": <%= JSON.pretty_generate(scope.lookupvar('synapse::haproxy_extra_sections'), :indent => "    ") %>
   }
 }
