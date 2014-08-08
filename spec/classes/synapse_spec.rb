@@ -81,6 +81,12 @@ describe 'synapse' do
     ) }
   end
 
+  context 'When alternate extra sections are specified' do
+    let(:params) {{ :haproxy_extra_sections => {'foo' => ['bar', 'baz']} }}
+    let(:facts) {{ :osfamily => 'Debian' }}
+    it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/{\n    "foo": \[\n        "bar",\n        "baz"\n    \]\n}/) }
+  end
+
   # Service Stuff
   context 'when requested not to run' do
     let(:params) {{ :service_ensure => 'stopped' }}

@@ -34,7 +34,15 @@ class synapse (
     'timeout  server  1m',
     'option   redispatch',
     'balance  roundrobin'
-  ]
+  ],
+  $haproxy_extra_sections  = {
+    'listen stats :3213' => [
+      'mode http',
+      'stats enable',
+      'stats uri /',
+      'stats refresh 5s',
+    ]
+  },
 ) inherits synapse::params {
 
   class { 'synapse::install': } ->
