@@ -35,6 +35,10 @@ class synapse (
     'option   redispatch',
     'balance  roundrobin'
   ],
+  $haproxy_global_log      = [
+    'log     127.0.0.1 local0',
+    'log     127.0.0.1 local1 notice'
+  ],
   $haproxy_extra_sections  = {
     'listen stats :3213' => [
       'mode http',
@@ -42,7 +46,7 @@ class synapse (
       'stats uri /',
       'stats refresh 5s',
     ]
-  },
+  }
 ) inherits synapse::params {
 
   class { 'synapse::install': } ->
@@ -56,4 +60,3 @@ class synapse (
     class { 'synapse::system_service': }
   }
 }
-

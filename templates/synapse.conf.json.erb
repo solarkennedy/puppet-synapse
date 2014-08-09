@@ -14,8 +14,7 @@
       "user <%= scope.lookupvar('synapse::user') %>",
       "group <%= scope.lookupvar('synapse::group') %>",
       "maxconn 4096",
-      "log     127.0.0.1 local0",
-      "log     127.0.0.1 local1 notice",
+      <%= scope.lookupvar('synapse::haproxy_global_log').map {|logline| "\"#{logline}\""}.join(",\n      ") %>,
       "stats   socket <%= scope.lookupvar('synapse::stats_socket') %> mode 666 level admin"
     ],
     "defaults": <%= scope.lookupvar('synapse::haproxy_defaults').to_json %>,
