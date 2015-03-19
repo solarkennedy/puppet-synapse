@@ -19,6 +19,7 @@ class synapse::system_service {
     enable     => str2bool($synapse::service_enable),
     hasstatus  => true,
     hasrestart => true,
+    provider   => upstart,
   }
 
 }
