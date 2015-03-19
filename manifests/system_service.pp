@@ -35,4 +35,12 @@ class synapse::system_service {
     }
   }
 
+  $log_file = $synapse::log_file
+  file { $log_file:
+    ensure => file,
+    owner  => $synapse::user,
+    group  => $synapse::group,
+    mode   => 640,
+  }
+
 }
