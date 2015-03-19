@@ -18,6 +18,7 @@ class synapse::params {
       $config_file      = '/etc/synapse/synapse.conf.json'
       $config_dir       = '/etc/synapse/conf.d/'
       $purge_config     = true
+      $log_file         = '/var/log/synapse.log'
       $instance_id      = $::fqdn
       $haproxy_ensure   = 'present'
       $user             = 'haproxy'

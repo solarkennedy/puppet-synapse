@@ -17,6 +17,7 @@ class synapse (
   $config_file      = $synapse::params::config_file,
   $config_dir       = $synapse::params::config_dir,
   $purge_config     = $synapse::params::purge_config,
+  $log_file         = $synapse::params::log_file,
   $haproxy_ensure   = $synapse::params::haproxy_ensure, 
   $user             = $synapse::params::user,
   $group                   = $synapse::params::group,

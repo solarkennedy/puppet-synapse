@@ -7,4 +7,4 @@ respawn
 respawn limit 10 5
 
 # Backwards compatibility to run as the HAProxy user to give it permission to reload and stuff
-exec su -s /bin/sh -c 'exec "$0" "$@"' <%= scope.lookupvar('synapse::user') -%> -- synapse --config <%= @config_file %>
+exec sudo -u <%= scope.lookupvar('synapse::user') -%> -- synapse --config <%= @config_file %> >> <%= @log_file %> 2>&1
