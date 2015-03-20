@@ -1,0 +1,13 @@
+{
+  "name": "KyleAnderson/synapse",
+  "version": "0.0.3",
+  "author": "Kyle Anderson <kyle@xkyle.com>",
+  "summary": "Puppet configuration for Airbnbs system for service discovery. Configures a dynamic HAproxy based on zookeeper entries",
+  "license": "Apache-2.0",
+  "source": "https://github.com/solarkennedy/puppet-synapse",
+  "project_page": "https://github.com/solarkennedy/puppet-synapse",
+  "issues_url": "https://github.com/solarkennedy/puppet-synapse/issues",
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">= 3.0.0"}
+  ]
+}
