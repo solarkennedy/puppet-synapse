@@ -18,7 +18,7 @@ class synapse (
   $config_dir       = $synapse::params::config_dir,
   $purge_config     = $synapse::params::purge_config,
   $log_file         = $synapse::params::log_file,
-  $haproxy_ensure   = $synapse::params::haproxy_ensure, 
+  $haproxy_ensure   = $synapse::params::haproxy_ensure,
   $user             = $synapse::params::user,
   $group                   = $synapse::params::group,
   $stats_socket            = $synapse::params::stats_socket,
@@ -52,7 +52,7 @@ class synapse (
 
   class { 'synapse::install': } ->
   class { 'synapse::config':
-    haproxy_daemon => $haproxy_daemon,
+    haproxy_daemon         => $haproxy_daemon,
     haproxy_reload_command => $haproxy_reload_command,
     haproxy_bind_address   => $haproxy_bind_address
   }
@@ -60,4 +60,5 @@ class synapse (
     Class['synapse::config'] ~>
     class { 'synapse::system_service': }
   }
+
 }

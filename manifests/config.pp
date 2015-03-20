@@ -20,15 +20,17 @@ class synapse::config (
   file { $::synapse::config_file:
     ensure  => 'present',
     owner   => 'root',
-    mode    => 0444,
+    group   => 'root',
+    mode    => '0444',
     content => template('synapse/synapse.conf.json.erb'),
   }
 
   file { $::synapse::config_dir:
-    ensure       => 'directory',
-    recurse      => true,
-    recurselimit => '1',
-    purge        => $synapse::purge_config,
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    recurse => true,
+    purge   => $synapse::purge_config,
   }
 
 

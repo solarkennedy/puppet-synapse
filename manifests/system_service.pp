@@ -11,19 +11,19 @@ class synapse::system_service {
   file { '/etc/init/synapse.conf':
     owner   => 'root',
     group   => 'root',
-    mode    => 0444,
+    mode    => '0444',
     content => template('synapse/synapse.conf.upstart.erb'),
   }
 
-  if $osfamily == 'RedHat' and $operatingsystemmajrelease == 6 {
+  if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == 6 {
     service { 'synapse':
-      ensure     => $synapse::service_ensure,
-      enable     => false,
-      hasstatus  => true,
-      start      => '/sbin/initctl start synapse',
-      stop       => '/sbin/initctl stop synapse',
-      status     => '/sbin/initctl status synapse | grep "/running" 1>/dev/null 2>&1',
-      subscribe  => File['/etc/init/synapse.conf'],
+      ensure    => $synapse::service_ensure,
+      enable    => false,
+      hasstatus => true,
+      start     => '/sbin/initctl start synapse',
+      stop      => '/sbin/initctl stop synapse',
+      status    => '/sbin/initctl status synapse | grep "/running" 1>/dev/null 2>&1',
+      subscribe => File['/etc/init/synapse.conf'],
     }
   } else {
     service { 'synapse':
@@ -40,7 +40,7 @@ class synapse::system_service {
     ensure => file,
     owner  => $synapse::user,
     group  => $synapse::group,
-    mode   => 640,
+    mode   => '0640',
   }
 
 }

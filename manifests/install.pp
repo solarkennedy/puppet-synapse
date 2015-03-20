@@ -10,8 +10,8 @@ class synapse::install {
       default:     { $package_name = 'rubygem-synapse' }
     }
   } else {
-   # Use the package name they asked for
-   $package_name = $synapse::package_name
+    # Use the package name they asked for
+    $package_name = $synapse::package_name
   }
 
   if $synapse::haproxy_ensure != 'unmanaged' {
@@ -20,8 +20,8 @@ class synapse::install {
     } -> Package['synapse']
   }
   package { 'synapse':
-    name     => $package_name,
     ensure   => $synapse::package_ensure,
+    name     => $package_name,
     provider => $synapse::package_provider,
   }
 
