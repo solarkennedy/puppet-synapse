@@ -9,6 +9,6 @@ gem 'puppetlabs_spec_helper'
 gem 'travis'
 gem 'travis-lint'
 gem 'puppet-syntax'
-gem 'puppet', ENV['PUPPET_VERSION'] || '~> 3.2.0'
+gem 'puppet', ENV['PUPPET_VERSION']
 gem 'vagrant-wrapper'
 gem 'puppet-blacksmith'

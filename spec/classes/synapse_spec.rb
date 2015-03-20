@@ -8,7 +8,7 @@ describe 'synapse' do
         let(:facts) {{
           :osfamily => osfamily
         }}
-        it { should include_class('synapse::params') }
+        it { should contain_class('synapse::params') }
         it { should contain_class('synapse::install') }
         it { should contain_class('synapse::config') }
         it { should contain_class('synapse::system_service') }
@@ -115,7 +115,7 @@ describe 'synapse' do
         :operatingsystem => 'Nexenta'
       }}
 
-      it { expect { should }.to raise_error(Puppet::Error, /Nexenta not supported/) }
+      it { expect { should compile }.to raise_error(Puppet::Error, /Nexenta not supported/) }
     end
   end
 end
