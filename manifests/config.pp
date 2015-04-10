@@ -5,7 +5,8 @@
 class synapse::config (
   $haproxy_daemon,
   $haproxy_reload_command,
-  $haproxy_bind_address
+  $haproxy_bind_address,
+  $haproxy_config_path,
 ) {
 
   # TODO: something?

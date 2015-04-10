@@ -3,7 +3,7 @@
   "haproxy": {
     "bind_address": "<%= @haproxy_bind_address %>",
     "reload_command": "<%= @haproxy_reload_command %>",
-    "config_file_path": "/etc/haproxy/haproxy.cfg",
+    "config_file_path": "<%= @haproxy_config_path %>",
     "socket_file_path": "<%= scope.lookupvar('synapse::stats_socket') %>",
     "do_writes": true,
     "do_reloads": true,

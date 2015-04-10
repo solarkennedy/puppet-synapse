@@ -25,6 +25,7 @@ class synapse (
   $haproxy_daemon          = true,
   $haproxy_reload_command  = $synapse::params::haproxy_reload_command,
   $haproxy_bind_address    = 'localhost',
+  $haproxy_config_path     = $synapse::params::haproxy_config_path,
   $haproxy_defaults        = [
     'log      global',
     'option   dontlognull',
@@ -54,7 +55,8 @@ class synapse (
   class { 'synapse::config':
     haproxy_daemon         => $haproxy_daemon,
     haproxy_reload_command => $haproxy_reload_command,
-    haproxy_bind_address   => $haproxy_bind_address
+    haproxy_bind_address   => $haproxy_bind_address,
+    haproxy_config_path    => $haproxy_config_path,
   }
   if str2bool($service_manage) {
     Class['synapse::config'] ~>

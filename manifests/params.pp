@@ -25,6 +25,7 @@ class synapse::params {
       $group            = 'haproxy'
       $stats_socket     = '/var/lib/haproxy/stats'
       $haproxy_reload_command = 'service haproxy reload'
+      $haproxy_config_path    = '/etc/haproxy/haproxy.cfg'
     }
     default: {
       fail("${::operatingsystem} not supported")
