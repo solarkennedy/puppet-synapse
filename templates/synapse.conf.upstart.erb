@@ -1,10 +1,19 @@
-# This file maintained by Puppet!
-# synapse
-
-description	"synapse"
+description "synapse"
 
 respawn
 respawn limit 10 5
 
-# Backwards compatibility to run as the HAProxy user to give it permission to reload and stuff
-exec sudo -u <%= scope.lookupvar('synapse::user') -%> -- synapse --config <%= @config_file %> >> <%= @log_file %> 2>&1
+script
+  set -e
+  exec >>"/var/log/synapse/synapse.log"
+
+  # Allow HAProxy to use lots of fds
+  ulimit -n 65535
+
+  # Create synapse working directory if necessary
+  SYNAPSE_WORKING_DIR=/var/run/synapse
+  mkdir -p "$SYNAPSE_WORKING_DIR"
+  chown -R <%= @user %> "$SYNAPSE_WORKING_DIR"
+
+  exec setuidgid <%= @user %> -- synapse --config <%= @config_file %> 2>&1
+end script
