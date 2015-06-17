@@ -5,7 +5,11 @@ respawn limit 10 5
 
 script
   set -e
-  exec >>"/var/log/synapse/synapse.log"
+
+  # When we no longer need to maintain compatibility with OSes != Ubuntu
+  # Trusty, we can remove this, as Trusty provides logging and log
+  # rotation for free.
+  exec >>"<%= @log_file %>"
 
   # Allow HAProxy to use lots of fds
   ulimit -n 65535
