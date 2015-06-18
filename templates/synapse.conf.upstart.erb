@@ -19,5 +19,5 @@ script
   mkdir -p "$SYNAPSE_WORKING_DIR"
   chown -R <%= @user %> "$SYNAPSE_WORKING_DIR"
 
-  exec setuidgid <%= @user %> -- synapse --config <%= @config_file %> 2>&1
+  exec setuidgid <%= @user %> synapse --config <%= @config_file %> 2>&1
 end script
