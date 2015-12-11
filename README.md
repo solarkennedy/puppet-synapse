@@ -1,6 +1,7 @@
 #synapse
-
 [![Build Status](https://travis-ci.org/solarkennedy/puppet-synapse.png?branch=master)](https://travis-ci.org/solarkennedy/puppet-synapse)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/KyleAnderson/synapse.svg)](https://forge.puppetlabs.com/KyleAnderson/synapse)
+[![Puppet Forge](https://img.shields.io/puppetforge/f/KyleAnderson/synapse.svg)](https://forge.puppetlabs.com/KyleAnderson/synapse)
 
 ## Description
 
