@@ -1,6 +1,6 @@
 #synapse
 
-[![Build Status](https://travis-ci.org/solarkennedy/puppet-synapse.png)](https://travis-ci.org/solarkennedy/puppet-synapse)
+[![Build Status](https://travis-ci.org/solarkennedy/puppet-synapse.png?branch=master)](https://travis-ci.org/solarkennedy/puppet-synapse)
 
 ## Description
 
