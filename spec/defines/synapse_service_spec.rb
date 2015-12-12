@@ -35,9 +35,7 @@ describe 'synapse::service', :type => :define do
       :mode   => '0444',
     ) }
 
-    #TODO: Validate JSON
-    
-    it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/\"default_servers\": \[\n  \{\n    \"name\": \"default1\",\n    \"host\": \"localhost\",\n    \"port\": \"8422\"\n  \}\n\]/) }
+    it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/\"default_servers\":/) }
     
     it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/\"discovery\": \{\n  \"method\": \"zookeeper\",\n  \"path\": \"\/airbnb\/service\/service2\",\n  \"hosts\": \[\n    \"zk0\.airbnb\.com:2181\",/) }
 
