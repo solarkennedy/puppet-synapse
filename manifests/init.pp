@@ -49,7 +49,7 @@ class synapse (
       'stats refresh 5s',
     ]
   },
-  $extra_config = [],
+  $extra_config = {},
 ) inherits synapse::params {
 
   class { 'synapse::install': } ->

@@ -51,10 +51,9 @@ class synapse::config (
       do_writes        => true,
       do_reloads       => true,
       do_socket        => true,
-      global           => [
-      ],
-      defaults       => $::synapse::haproxy_defaults,
-      extra_sections => $::synapse::haproxy_extra_sections,
+      global           => $global_config,
+      defaults         => $::synapse::haproxy_defaults,
+      extra_sections   => $::synapse::haproxy_extra_sections,
     }
   }, $extra_config)
 
