@@ -38,7 +38,7 @@ class synapse::config (
       "maxconn 4096",
       "stats socket $::synapse::stats_socket mode 666 level admin",
     ],
-    $::synapse_haproxy_global_map
+    $::synapse::haproxy_global_log
   )
 
   $config = merge({
