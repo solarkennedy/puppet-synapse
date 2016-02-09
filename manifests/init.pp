@@ -48,7 +48,8 @@ class synapse (
       'stats uri /',
       'stats refresh 5s',
     ]
-  }
+  },
+  $extra_config = [],
 ) inherits synapse::params {
 
   class { 'synapse::install': } ->
@@ -57,6 +58,7 @@ class synapse (
     haproxy_reload_command => $haproxy_reload_command,
     haproxy_bind_address   => $haproxy_bind_address,
     haproxy_config_path    => $haproxy_config_path,
+    extra_config           => $extra_config,
   }
   if str2bool($service_manage) {
     Class['synapse::config'] ~>
