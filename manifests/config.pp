@@ -41,7 +41,7 @@ class synapse::config (
     $::synapse::haproxy_global_log
   )
 
-  $config = merge({
+  $config = deep_merge({
     service_conf_dir   => $::synapse::config_dir,
     haproxy            => {
       bind_address     => $haproxy_bind_address,
