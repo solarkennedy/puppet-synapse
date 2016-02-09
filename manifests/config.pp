@@ -24,7 +24,7 @@ class synapse::config (
     }
   }
 
-  if $daemon {
+  if $haproxy_daemon {
     $daemon_config = ['daemon']
   } else {
     $daemon_config = []
