@@ -33,10 +33,10 @@ class synapse::config (
   $global_config = concat(
     $daemon_config,
     [
-      "user $::synapse::user",
-      "group $::synapse::group",
-      "maxconn 4096",
-      "stats socket $::synapse::stats_socket mode 666 level admin",
+      "user ${::synapse::user}",
+      "group ${::synapse::group}",
+      'maxconn 4096',
+      "stats socket ${::synapse::stats_socket} mode 666 level admin",
     ],
     $::synapse::haproxy_global_log
   )
@@ -73,6 +73,4 @@ class synapse::config (
     purge   => $::synapse::purge_config,
     force   => true,
   }
-
-
 }
