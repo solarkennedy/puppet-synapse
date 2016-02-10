@@ -84,19 +84,19 @@ describe 'synapse' do
   context 'When alternate global log declarations are specified' do
     let(:params) {{ :haproxy_global_log => ['log foo', 'log bar'] }}
     let(:facts)  {{ :osfamily => 'Debian' }}
-    it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/"log foo\",\n      \"log bar\",/) }
+    it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/"log foo"/).with_content(/"log bar"/) }
   end
 
   context 'When no global log declarations are specified' do
     let(:params) {{  }}
     let(:facts)  {{ :osfamily => 'Debian' }}
-    it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/"log     127.0.0.1 local0\",\n      \"log     127.0.0.1 local1 notice\",/) }
+    it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/"log     127.0.0.1 local0"/).with_content(/"log     127.0.0.1 local1 notice"/) }
   end
 
   context 'When alternate extra sections are specified' do
     let(:params) {{ :haproxy_extra_sections => {'foo' => ['bar', 'baz']} }}
     let(:facts) {{ :osfamily => 'Debian' }}
-    it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/{\n    "foo": \[\n        "bar",\n        "baz"\n    \]\n}/) }
+    it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/{\n\s+"foo": \[\n\s+"bar",\n\s+"baz"\n\s+\]\n}/) }
   end
 
   # Service Stuff
