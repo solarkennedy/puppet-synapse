@@ -96,7 +96,7 @@ describe 'synapse' do
   context 'When alternate extra sections are specified' do
     let(:params) {{ :haproxy_extra_sections => {'foo' => ['bar', 'baz']} }}
     let(:facts) {{ :osfamily => 'Debian' }}
-    it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/{\n\s+"foo": \[\n\s+"bar",\n\s+"baz"\n\s+\]\n}/) }
+    it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/{\n\s+"foo": \[\n\s+"bar",\n\s+"baz"\n\s+\]\n\s+}/) }
   end
 
   # Service Stuff
