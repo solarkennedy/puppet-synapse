@@ -1,23 +1,2 @@
-<% require 'json' %>{
-  "service_conf_dir": "<%= scope.lookupvar('synapse::config_dir') %>",
-  "haproxy": {
-    "bind_address": "<%= @haproxy_bind_address %>",
-    "reload_command": "<%= @haproxy_reload_command %>",
-    "config_file_path": "<%= @haproxy_config_path %>",
-    "socket_file_path": "<%= scope.lookupvar('synapse::stats_socket') %>",
-    "do_writes": true,
-    "do_reloads": true,
-    "do_socket": true,
-    "global": [
-<%- if @haproxy_daemon -%>      "daemon",
-<%- end -%>
-      "user <%= scope.lookupvar('synapse::user') %>",
-      "group <%= scope.lookupvar('synapse::group') %>",
-      "maxconn 4096",
-      <%= scope.lookupvar('synapse::haproxy_global_log').map {|logline| "\"#{logline}\""}.join(",\n      ") %>,
-      "stats   socket <%= scope.lookupvar('synapse::stats_socket') %> mode 666 level admin"
-    ],
-    "defaults": <%= scope.lookupvar('synapse::haproxy_defaults').to_json %>,
-    "extra_sections": <%= JSON.pretty_generate(scope.lookupvar('synapse::haproxy_extra_sections'), :indent => "    ") %>
-  }
-}
+<% require 'json' -%>
+<%= JSON.pretty_generate(@config) %>

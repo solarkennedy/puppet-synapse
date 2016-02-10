@@ -4,6 +4,7 @@
 # It ensure the service is running
 #
 class synapse::system_service {
+  $user = $synapse::user
 
   # TODO: This assumes upstart. Be more compatible someday
 
@@ -38,7 +39,7 @@ class synapse::system_service {
   $log_file = $synapse::log_file
   file { $log_file:
     ensure => file,
-    owner  => $synapse::user,
+    owner  => $user,
     group  => $synapse::group,
     mode   => '0640',
   }
