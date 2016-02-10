@@ -60,9 +60,14 @@ class synapse (
     haproxy_config_path    => $haproxy_config_path,
     extra_config           => $extra_config,
   }
+
   if str2bool($service_manage) {
-    Class['synapse::config'] ~>
-    class { 'synapse::system_service': }
+    class { 'synapse::system_service':
+      subscribe => [
+        Class['synapse::install'],
+        Class['synapse::config'],
+      ],
+    }
   }
 
 }
