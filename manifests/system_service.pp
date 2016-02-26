@@ -5,6 +5,7 @@
 #
 class synapse::system_service {
   $user = $synapse::user
+  $extra_init_string = join($extra_init_lines, ',')
 
   # TODO: This assumes upstart. Be more compatible someday
 
