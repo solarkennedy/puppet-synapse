@@ -4,12 +4,12 @@
 # It ensure the service is running
 #
 class synapse::system_service {
-  $user = $synapse::user
-  $extra_init_string = join($extra_init_lines, ',')
+  $user = $::synapse::user
+  $extra_init_string = join($::synapse::extra_init_lines, ',')
 
   # TODO: This assumes upstart. Be more compatible someday
 
-  $config_file = $synapse::config_file
+  $config_file = $::synapse::config_file
   file { '/etc/init/synapse.conf':
     owner   => 'root',
     group   => 'root',
@@ -19,7 +19,7 @@ class synapse::system_service {
 
   if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == 6 {
     service { 'synapse':
-      ensure    => $synapse::service_ensure,
+      ensure    => $::synapse::service_ensure,
       enable    => false,
       hasstatus => true,
       start     => '/sbin/initctl start synapse',
@@ -29,19 +29,19 @@ class synapse::system_service {
     }
   } else {
     service { 'synapse':
-      ensure     => $synapse::service_ensure,
-      enable     => str2bool($synapse::service_enable),
+      ensure     => $::synapse::service_ensure,
+      enable     => str2bool($::synapse::service_enable),
       hasstatus  => true,
       hasrestart => true,
       subscribe  => File['/etc/init/synapse.conf'],
     }
   }
 
-  $log_file = $synapse::log_file
+  $log_file = $::synapse::log_file
   file { $log_file:
     ensure => file,
     owner  => $user,
-    group  => $synapse::group,
+    group  => $::synapse::group,
     mode   => '0640',
   }
 
