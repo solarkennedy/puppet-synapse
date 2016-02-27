@@ -24,8 +24,9 @@ class synapse (
   $stats_socket            = $synapse::params::stats_socket,
   $haproxy_daemon          = true,
   $haproxy_reload_command  = $synapse::params::haproxy_reload_command,
-  $haproxy_bind_address    = 'localhost',
+  $haproxy_bind_address    = '127.0.0.1',
   $haproxy_config_path     = $synapse::params::haproxy_config_path,
+  $working_dir             = '/var/run/synapse',
   $haproxy_defaults        = [
     'log      global',
     'option   dontlognull',

@@ -6,6 +6,7 @@
 class synapse::system_service {
   $user = $::synapse::user
   $extra_init_string = join($::synapse::extra_init_lines, ',')
+  $working_dir = $::synapse::working_dir
 
   # TODO: This assumes upstart. Be more compatible someday
 
