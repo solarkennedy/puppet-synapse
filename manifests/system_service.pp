@@ -28,11 +28,10 @@ class synapse::system_service {
     }
   } else {
     service { 'synapse':
-      ensure     => $synapse::service_ensure,
-      enable     => str2bool($synapse::service_enable),
-      hasstatus  => true,
-      hasrestart => true,
-      subscribe  => File['/etc/init/synapse.conf'],
+      ensure    => $::synapse::service_ensure,
+      enable    => str2bool($::synapse::service_enable),
+      hasstatus => true,
+      subscribe => File['/etc/init/synapse.conf'],
     }
   }
 
