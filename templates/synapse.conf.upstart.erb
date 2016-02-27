@@ -14,10 +14,11 @@ script
   # Allow HAProxy to use lots of fds
   ulimit -n 65535
 
+  <%= @extra_init_string %>
+
   # Create synapse working directory if necessary
-  SYNAPSE_WORKING_DIR=/var/run/synapse
-  mkdir -p "$SYNAPSE_WORKING_DIR"
-  chown -R <%= @user %> "$SYNAPSE_WORKING_DIR"
+  mkdir -p "<%= @working_dir %>"
+  chown -R <%= @user %> "<%= @working_dir %>"
 
   exec setuidgid <%= @user %> synapse --config <%= @config_file %> 2>&1
 end script
