@@ -65,7 +65,7 @@ class synapse (
 
   if str2bool($service_manage) {
     class { 'synapse::system_service':
-      subscribe        => [
+      subscribe => [
         Class['synapse::install'],
         Class['synapse::config'],
       ],
