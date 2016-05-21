@@ -13,7 +13,7 @@ class synapse::system_service {
       'nofile' => '65535',
     },
     before_command => [
-      ['mkdir', '-p', "$synapse_working_dir/sockets"],
+      ['mkdir', '-p', "${synapse_working_dir}/sockets", "${synapse_working_dir}/services"],
       ['chown', '-R', $user, "$synapse_working_dir"],
     ],
     command => ['/usr/bin/synapse', '--config', $::synapse::config_file],
