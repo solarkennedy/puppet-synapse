@@ -11,7 +11,6 @@ describe 'synapse' do
         it { should contain_class('synapse::params') }
         it { should contain_class('synapse::install') }
         it { should contain_class('synapse::config') }
-        it { should contain_class('synapse::system_service') }
       end
     end
   end
@@ -48,7 +47,7 @@ describe 'synapse' do
       :name     => 'rubygem-synapse'
     ) }
   end
-  
+
   # Config stuff
   context 'config by default' do
     let(:params) {{  }}
@@ -103,8 +102,8 @@ describe 'synapse' do
   context 'when requested not to run' do
     let(:params) {{ :service_ensure => 'stopped' }}
     let(:facts) {{ :osfamily => 'Debian' }}
-    it { should contain_service('synapse').with(
-      :ensure   => 'stopped'
+    it { should contain_initscript('synapse').with(
+      :service_ensure   => 'stopped'
     ) }
   end
 

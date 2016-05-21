@@ -22,7 +22,7 @@ class synapse (
   $user             = $synapse::params::user,
   $group                   = $synapse::params::group,
   $stats_socket            = $synapse::params::stats_socket,
-  $working_dir             = '/run/synapse'
+  $working_dir             = '/run/synapse',
   $haproxy_daemon          = true,
   $haproxy_reload_command  = $synapse::params::haproxy_reload_command,
   $haproxy_bind_address    = 'localhost',
@@ -63,7 +63,7 @@ class synapse (
   }
 
   if str2bool($service_manage) {
-    ::initscript { 'synapse':
+    initscript { 'synapse':
       user           => $user,
       ulimit         => {
         'nofile' => '65535',
@@ -72,8 +72,9 @@ class synapse (
         ['mkdir', '-p', "${working_dir}/sockets", "${working_dir}/services"],
         ['chown', '-R', $user, $working_dir],
       ],
-      command => ['/usr/bin/synapse', '--config', $config_file],
-      subscribe => [
+      command        => ['/usr/bin/synapse', '--config', $config_file],
+      service_ensure => $service_ensure,
+      subscribe      => [
         Class['synapse::install'],
         Class['synapse::config'],
       ],
