@@ -4,35 +4,18 @@
 # It ensure the service is running
 #
 class synapse::system_service {
-  $user = $synapse::user
+  $synapse_working_dir = '/run/synapse'
 
-  # TODO: This assumes upstart. Be more compatible someday
-
-  $config_file = $synapse::config_file
-  file { '/etc/init/synapse.conf':
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0444',
-    content => template('synapse/synapse.conf.upstart.erb'),
-  }
-
-  if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == 6 {
-    service { 'synapse':
-      ensure    => $synapse::service_ensure,
-      enable    => false,
-      hasstatus => true,
-      start     => '/sbin/initctl start synapse',
-      stop      => '/sbin/initctl stop synapse',
-      status    => '/sbin/initctl status synapse | grep "/running" 1>/dev/null 2>&1',
-      subscribe => File['/etc/init/synapse.conf'],
+  ::initscript { 'synapse':
+    user           => $::synapse::user,
+    ulimit         => {
+      'nofile' => '65535'
     }
-  } else {
-    service { 'synapse':
-      ensure    => $::synapse::service_ensure,
-      enable    => str2bool($::synapse::service_enable),
-      hasstatus => true,
-      subscribe => File['/etc/init/synapse.conf'],
-    }
+    before_command => [
+      ['mkdir', '-p', "$synapse_working_dir/sockets"],
+      ['chown', '-R', $user, "$synapse_working_dir"],
+    ],
+    command => "/usr/bin/synapse --config ${::synapse::config_file}",
   }
 
   $log_file = $synapse::log_file
