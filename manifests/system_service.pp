@@ -18,11 +18,10 @@ class synapse::system_service {
     command => "/usr/bin/synapse --config ${::synapse::config_file}",
   }
 
-  $log_file = $synapse::log_file
-  file { $log_file:
+  file { $::synapse::log_file:
     ensure => file,
-    owner  => $user,
-    group  => $synapse::group,
+    owner  => $::synapse::user,
+    group  => $::synapse::group,
     mode   => '0640',
   }
 
