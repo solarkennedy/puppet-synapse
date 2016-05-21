@@ -5,9 +5,10 @@
 #
 class synapse::system_service {
   $synapse_working_dir = '/run/synapse'
+  $user = $::synapse::user
 
   ::initscript { 'synapse':
-    user           => $::synapse::user,
+    user           => $user,
     ulimit         => {
       'nofile' => '65535',
     },
@@ -20,7 +21,7 @@ class synapse::system_service {
 
   file { $::synapse::log_file:
     ensure => file,
-    owner  => $::synapse::user,
+    owner  => $user,
     group  => $::synapse::group,
     mode   => '0640',
   }
