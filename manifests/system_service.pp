@@ -16,7 +16,7 @@ class synapse::system_service {
       ['mkdir', '-p', "$synapse_working_dir/sockets"],
       ['chown', '-R', $user, "$synapse_working_dir"],
     ],
-    command => "/usr/bin/synapse --config ${::synapse::config_file}",
+    command => ['/usr/bin/synapse', '--config', $::synapse::config_file],
   }
 
   file { $::synapse::log_file:
