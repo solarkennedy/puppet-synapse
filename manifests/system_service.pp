@@ -9,8 +9,8 @@ class synapse::system_service {
   ::initscript { 'synapse':
     user           => $::synapse::user,
     ulimit         => {
-      'nofile' => '65535'
-    }
+      'nofile' => '65535',
+    },
     before_command => [
       ['mkdir', '-p', "$synapse_working_dir/sockets"],
       ['chown', '-R', $user, "$synapse_working_dir"],
