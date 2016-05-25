@@ -1,5 +1,12 @@
 require 'spec_helper'
 describe 'synapse::service', :type => :define do
+  let(:facts) {{ :osfamily => 'Debian' }}
+  let(:pre_condition) do
+    global_pre_condition +
+    [
+      "class { 'synapse': }",
+    ]
+  end
 
   describe 'With an example service' do
     let :title do
