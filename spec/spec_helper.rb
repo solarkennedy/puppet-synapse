@@ -5,13 +5,13 @@ module GlobalHelper
   extend RSpec::Core::SharedContext
 
   def global_pre_condition
-    [(File.read('spec/fixtures/manifests/site.pp') rescue ''),
-     'Package { provider => "apt" }']
+    if ENV['FUTURE_PARSER'] == 'yes' or not Puppet.version =~ /^3/
+      [(File.read('spec/fixtures/manifests/site.pp') rescue ''),
+       'Package { provider => "apt" }']
+    else [] end
   end
 
-  if ENV['FUTURE_PARSER'] == 'yes' or not Puppet.version =~ /^3/
-    let(:pre_condition) { global_pre_condition }
-  end
+  let(:pre_condition) { global_pre_condition }
 end
 
 RSpec.configure do |c|
