@@ -64,7 +64,6 @@ class synapse (
 
   if str2bool($service_manage) {
     initscript { 'synapse':
-      user           => $user,
       ulimit         => {
         'nofile' => '65535',
       },
@@ -72,7 +71,7 @@ class synapse (
         ['mkdir', '-p', "${working_dir}/sockets", "${working_dir}/services"],
         ['chown', '-R', $user, $working_dir],
       ],
-      command        => ['/usr/bin/synapse', '--config', $config_file],
+      command        => ['setuidgid', $user, '/usr/bin/synapse', '--config', $config_file],
       service_ensure => $service_ensure,
       subscribe      => [
         Class['synapse::install'],
