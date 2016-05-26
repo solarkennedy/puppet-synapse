@@ -1,5 +1,12 @@
 require 'spec_helper'
 describe 'synapse::service', :type => :define do
+  let(:facts) {{ :osfamily => 'Debian' }}
+  let(:pre_condition) do
+    global_pre_condition +
+    [
+      "class { 'synapse': }",
+    ]
+  end
 
   describe 'With an example service' do
     let :title do
@@ -36,7 +43,7 @@ describe 'synapse::service', :type => :define do
     ) }
 
     it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/\"default_servers\":/) }
-    
+
     it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/\"discovery\": \{\n  \"method\": \"zookeeper\",\n  \"path\": \"\/airbnb\/service\/service2\",\n  \"hosts\": \[\n    \"zk0\.airbnb\.com:2181\",/) }
 
     it { should contain_file('/etc/synapse/conf.d/example_service.json').with_content(/\"haproxy\": \{\n  \"port\": \"3214\",\n  \"server_options\": \"check inter 2s rise 3 fall 2\",\n  \"listen\": \[\n    \"mode http\",\n    \"option httpchk \/health\"\n  \]\n\}\n\}/ ) }
