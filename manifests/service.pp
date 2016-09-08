@@ -57,6 +57,7 @@ define synapse::service (
 ) {
 
   include stdlib
+  include ::synapse
   validate_array($default_servers)
   validate_hash($discovery)
   validate_hash($haproxy)
