@@ -14,7 +14,7 @@ env:
   - PUPPET_VERSION="~> 3.3.0"
   - PUPPET_VERSION="~> 3.7.4" FUTURE_PARSER=yes STRICT_VARIABLES=yes
   - PUPPET_VERSION="~> 4.0.0"
-  - PUPPET_VERSION="~> 4.1.0"
+  - PUPPET_VERSION="~> 4.1.0" DEPLOY_TO_FORGE=yes
 matrix:
   exclude:
   - rvm: 1.9.3
@@ -41,3 +41,14 @@ matrix:
     env: PUPPET_VERSION="~> 4.1.0"
   - rvm: 2.0.0
     env: PUPPET_VERSION="~> 4.1.0"
+
+deploy:
+  provider: puppetforge
+  deploy:
+    branch: ha-bug-puppet-forge
+  user: KyleAnderson
+  password:
+    secure: "Pz5jx7KSynLABZrVaa9gONvSDPtt/tpDkb03YvcvuqlgRRNqpL2wmAGXborr1xd2hZy1PNW1glNmosUPjuKMuYC1caXlGeaAfQ8sU6S6aHY4EettRrYM4g5cGeSK+21e96vszqVH1FsTPIWqCrgQgnJhgN843UoePBp0OszEs+s="
+  on:
+    tags: true
+    condition: "$DEPLOY_TO_FORGE = yes"
