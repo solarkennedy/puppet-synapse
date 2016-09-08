@@ -1,12 +1,15 @@
 require 'spec_helper'
 
 describe 'synapse' do
+  let(:facts)  {{ :osfamily => 'Debian', :operatingsystemmajrelease => '5', }}
+
   context 'supported operating systems' do
     ['Debian', 'RedHat'].each do |osfamily|
       describe "synapse class without any parameters on #{osfamily}" do
         let(:params) {{ }}
         let(:facts) {{
-          :osfamily => osfamily
+          :osfamily => osfamily,
+	  :operatingsystemmajrelease => '5',
         }}
         it { should contain_class('synapse::params') }
         it { should contain_class('synapse::install') }
@@ -18,7 +21,6 @@ describe 'synapse' do
 
   context 'when asked to install via gem' do
     let(:params) {{ :package_provider => 'gem', }}
-    let(:facts) {{ :osfamily => 'Debian' }}
     it { should contain_package('synapse').with(
       :ensure   => '0.7.0',
       :provider => 'gem',
@@ -31,7 +33,6 @@ describe 'synapse' do
                     :package_provider => 'bla',
                     :package_name     => 'special-synapse'
     }}
-    let(:facts) {{ :osfamily => 'Debian' }}
     it { should contain_package('synapse').with(
       :ensure   => 'latest',
       :provider => 'bla',
@@ -41,7 +42,6 @@ describe 'synapse' do
 
   context 'when not specified how to install' do
     let(:params) {{ }}
-    let(:facts) {{ :osfamily => 'Debian' }}
     it { should contain_package('synapse').with(
       :ensure   => '0.7.0',
       :provider => nil,
@@ -52,7 +52,6 @@ describe 'synapse' do
   # Config stuff
   context 'config by default' do
     let(:params) {{  }}
-    let(:facts) {{ :osfamily => 'Debian' }}
     it { should contain_file('/etc/synapse/synapse.conf.json').with(
       :ensure   => 'present',
       :mode     => '0444'
@@ -69,7 +68,6 @@ describe 'synapse' do
                     :config_dir   => '/tmp/synapse.d/',
                     :purge_config => false
     }}
-    let(:facts) {{ :osfamily => 'Debian' }}
     it { should contain_file('/opt/bla.json').with(
       :ensure   => 'present',
       :mode     => '0444'
@@ -83,26 +81,22 @@ describe 'synapse' do
 
   context 'When alternate global log declarations are specified' do
     let(:params) {{ :haproxy_global_log => ['log foo', 'log bar'] }}
-    let(:facts)  {{ :osfamily => 'Debian' }}
     it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/"log foo"/).with_content(/"log bar"/) }
   end
 
   context 'When no global log declarations are specified' do
     let(:params) {{  }}
-    let(:facts)  {{ :osfamily => 'Debian' }}
     it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/"log     127.0.0.1 local0"/).with_content(/"log     127.0.0.1 local1 notice"/) }
   end
 
   context 'When alternate extra sections are specified' do
     let(:params) {{ :haproxy_extra_sections => {'foo' => ['bar', 'baz']} }}
-    let(:facts) {{ :osfamily => 'Debian' }}
     it { should contain_file('/etc/synapse/synapse.conf.json').with_content(/{\n\s+"foo": \[\n\s+"bar",\n\s+"baz"\n\s+\]\n\s+}/) }
   end
 
   # Service Stuff
   context 'when requested not to run' do
     let(:params) {{ :service_ensure => 'stopped' }}
-    let(:facts) {{ :osfamily => 'Debian' }}
     it { should contain_service('synapse').with(
       :ensure   => 'stopped'
     ) }
