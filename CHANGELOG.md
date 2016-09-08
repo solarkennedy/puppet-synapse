@@ -1,7 +1,7 @@
 # Change Log
 
-## [0.0.5](https://github.com/solarkennedy/puppet-synapse/tree/0.0.5) (2016-09-07)
-[Full Changelog](https://github.com/solarkennedy/puppet-synapse/compare/v0.0.4...0.0.5)
+## [v0.0.5](https://github.com/solarkennedy/puppet-synapse/tree/v0.0.5) (2016-09-08)
+[Full Changelog](https://github.com/solarkennedy/puppet-synapse/compare/v0.0.4...v0.0.5)
 
 **Merged pull requests:**
 
