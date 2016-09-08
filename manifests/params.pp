@@ -4,7 +4,7 @@
 # It sets variables according to platform
 #
 class synapse::params {
-  
+
   case $::osfamily {
     'Debian','RedHat','Amazon': {
       # Right now, requires 0.7.0
