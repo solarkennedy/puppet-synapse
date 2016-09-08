@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.0.5](https://github.com/solarkennedy/puppet-synapse/tree/0.0.5) (2016-09-07)
+[Full Changelog](https://github.com/solarkennedy/puppet-synapse/compare/v0.0.4...0.0.5)
+
+**Merged pull requests:**
+
+- Remove hasrestart=\>true from Synapse initscript [\#11](https://github.com/solarkennedy/puppet-synapse/pull/11) ([hashbrowncipher](https://github.com/hashbrowncipher))
+- Re-tool config, initscript, and upgrading [\#9](https://github.com/solarkennedy/puppet-synapse/pull/9) ([hashbrowncipher](https://github.com/hashbrowncipher))
+
 ## [v0.0.4](https://github.com/solarkennedy/puppet-synapse/tree/v0.0.4) (2015-04-10)
 [Full Changelog](https://github.com/solarkennedy/puppet-synapse/compare/v0.0.3...v0.0.4)
 
